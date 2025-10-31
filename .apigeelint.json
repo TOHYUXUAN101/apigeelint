@@ -1,33 +1,65 @@
 {
   "rules": {
-    "PO027": { "severity": 3 },
-    "PO028": { "severity": 3 },
-    "FE001": { "severity": 3 },
-    "TD002": { "severity": 3 },
-    "TD004": { "severity": 3 },
-    "TD005": { "severity": 3 },
-    "TD006": { "severity": 3 },
-    "TD011": { "severity": 3 },
-    "TD012": { "severity": 3 },
-    "TD013": { "severity": 3 },
-    "TD017": { "severity": 3 },
-    "ST006": { "severity": 3 },
-    "ST007": { "severity": 3 },
-    "PO009": { "severity": 3 },
-    "PO010": { "severity": 3 },
-    "PO011": { "severity": 3 },
-    "PO017": { "severity": 3 },
-    "PO018": { "severity": 3 },
-    "PO026": { "severity": 3 },
-    "PO031": { "severity": 3 },
-    "PO032": { "severity": 3 },
-    "PO033": { "severity": 3 },
-    "PO039": { "severity": 3 },
-    "PO040": { "severity": 3 },
-    "CC001": { "severity": 3 },
-    "CC002": { "severity": 3 },
-    "FR001": { "severity": 3 },
-    "FR002": { "severity": 3 },
-    "FL001": { "severity": 3 }
+    // =====================================================
+    // 🧩 Authentication
+    // (Token validation, OAuth, Fault Rule consistency)
+    // =====================================================
+    "FE001": { "severity": 3 }, // FaultRules must handle authentication errors
+    "PO027": { "severity": 3 }, // OAuthV2 policy must be implemented
+
+    // =====================================================
+    // 🔐 Token Management / OAuth Configuration
+    // =====================================================
+    "PO035": { "severity": 3 }, // OAuthV2 GenerateAccessToken or VerifyAccessToken must be used
+    "BN010": { "severity": 3 }, // Ensure proper basepath naming or namespace consistency
+
+    // =====================================================
+    // ⚙️ Rate Limiting / Denial of Service Prevention
+    // (Spike Arrest, Quota, and related enforcement)
+    // =====================================================
+    "ST006": { "severity": 3 }, // SpikeArrest policy existence
+    "PO033": { "severity": 3 }, // Verify SpikeArrest/Quota configuration
+    "PO040": { "severity": 3 }, // Prevent unrestricted backend access
+
+    "ST007": { "severity": 3 }, // Quota policy existence
+    "PO032": { "severity": 3 }, // Validate Quota/Rate limiting configuration
+
+    "PO026": { "severity": 3 }, // SpikeArrest should exist
+    "PO031": { "severity": 3 }, // Quota policy should exist
+
+    "PO039": { "severity": 3 }, // Restrict backend to trusted targets only
+
+    // =====================================================
+    // ⚠️ Error Handling & Fault Response
+    // =====================================================
+    "FR001": { "severity": 3 }, // Authentication/authorization fault rule
+    "FR002": { "severity": 3 }, // Generic error handling
+    "FE001": { "severity": 3 }, // FaultRule presence validation
+
+    // =====================================================
+    // 🧱 Input Validation / Threat Protection
+    // (JSON, XML, size, schema validation)
+    // =====================================================
+    "TD002": { "severity": 3 }, // JSONThreatProtection
+    "TD004": { "severity": 3 }, // XMLThreatProtection
+    "TD005": { "severity": 3 }, // Validate JSON/XML configuration
+    "TD006": { "severity": 3 }, // Validate content size
+    "TD007": { "severity": 3 }, // Input validation via regex/schema
+    "TD011": { "severity": 3 }, // JSON schema enforcement
+    "TD012": { "severity": 3 }, // XML schema enforcement
+    "TD013": { "severity": 3 }, // Payload size limit
+    "TD017": { "severity": 3 }, // Prevent unvalidated variable injection
+
+    // =====================================================
+    // 🌐 Cross-Origin / Message Integrity / Flow Logic
+    // =====================================================
+    "FL001": { "severity": 3 }, // Proper flow / fault rule definition
+    "FR001": { "severity": 3 }, // Linked to fault rule chain
+    "FR002": { "severity": 3 }, // Linked to generic fault rule
+    "CC001": { "severity": 3 }, // CORS enforcement
+    "CC002": { "severity": 3 }, // Restrictive CORS configuration
+    "PO009": { "severity": 3 }, // Security headers injection
+    "PO010": { "severity": 3 }, // Content-Type enforcement
+    "PO011": { "severity": 3 }  // Remove sensitive headers
   }
 }
