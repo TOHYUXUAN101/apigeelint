@@ -1,0 +1,33 @@
+{
+  "rules": {
+    "PO027": { "severity": 3 },
+    "PO028": { "severity": 3 },
+    "FE001": { "severity": 3 },
+    "TD002": { "severity": 3 },
+    "TD004": { "severity": 3 },
+    "TD005": { "severity": 3 },
+    "TD006": { "severity": 3 },
+    "TD011": { "severity": 3 },
+    "TD012": { "severity": 3 },
+    "TD013": { "severity": 3 },
+    "TD017": { "severity": 3 },
+    "ST006": { "severity": 3 },
+    "ST007": { "severity": 3 },
+    "PO009": { "severity": 3 },
+    "PO010": { "severity": 3 },
+    "PO011": { "severity": 3 },
+    "PO017": { "severity": 3 },
+    "PO018": { "severity": 3 },
+    "PO026": { "severity": 3 },
+    "PO031": { "severity": 3 },
+    "PO032": { "severity": 3 },
+    "PO033": { "severity": 3 },
+    "PO039": { "severity": 3 },
+    "PO040": { "severity": 3 },
+    "CC001": { "severity": 3 },
+    "CC002": { "severity": 3 },
+    "FR001": { "severity": 3 },
+    "FR002": { "severity": 3 },
+    "FL001": { "severity": 3 }
+  }
+}
