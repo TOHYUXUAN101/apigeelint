@@ -1,0 +1,14 @@
+<TargetEndpoint name="default">
+  <HTTPTargetConnection>
+    <SSLInfo>
+      <Enabled>true</Enabled>
+      <!-- TruStore/Keystore have to set in Apigee Console which is pay by service -->
+      <!-- Keystore must exist if ClientAuthEnabled set to true -->
+      <TrustStore ref="my-truststore"/>
+      <ClientAuthEnabled>false</ClientAuthEnabled>
+    </SSLInfo>
+     <!-- TargetServer have to set in Apigee Console which is pay by service -->
+     <!-- URL will be used when the domain is static, else use TargetServer -->
+    <URL>https://example.com</URL>
+  </HTTPTargetConnection>
+</TargetEndpoint>

@@ -1,0 +1,124 @@
+<ProxyEndpoint name="default">
+    <Description>Default proxy endpoint</Description>
+
+    <!-- PreFlow: Global request-level security -->
+    <PreFlow name="PreFlow">
+        <Request>
+            <!-- Rate Limiting -->
+            <Step><Name>SpikeArrest</Name></Step>
+            <Step><Name>Quota</Name></Step>
+
+            <!-- Authentication / Authorization -->
+            <Step><Name>OAuthV2-OAuth</Name></Step>
+
+            <!-- Threat Protection -->
+            <Step>
+                <Name>JSONThreat-Protection</Name>
+                <Condition>message.content != null</Condition>
+            </Step>
+            <Step>
+                <Name>xmltp-XMLThreat-Protection</Name>
+                <Condition>message.content != null</Condition>
+            </Step>
+
+            <!-- Assign and CORS Setup -->
+            <Step>
+                <Name>CORS</Name>
+                <Condition>request.verb = "OPTIONS"</Condition>
+            </Step>
+            <Step><Name>AssignMessage-ContentType</Name></Step>
+            
+            <!-- Logging -->
+            <Step><Name>MessageLogging-Hygiene</Name></Step>
+        </Request>
+        <Response>
+            <!-- Optional: Log response details -->
+            <Step><Name>MessageLogging-Hygiene</Name></Step>
+        </Response>
+    </PreFlow>
+
+     <!-- Conditional Flows: Define logic for specific endpoints or HTTP verbs -->
+     <!-- Conditional must be set as if else-->
+    <Flows>
+        <Flow name="GenerateTokenFlow">
+            <Condition>(proxy.pathsuffix MatchesPath "/token")</Condition>
+            <Request>
+                <Step>
+                    <Name>OAuthV2-GenerateAccessToken</Name>
+                </Step>
+            </Request>
+        </Flow>
+        
+        <Flow name="OPTIONS Handler">
+            <Condition>request.verb = "OPTIONS"</Condition>
+            <Request>
+                <!-- Return allowed headers and methods for CORS preflight -->
+                <Step>
+                    <Name>CORS</Name>
+                    <Condition>request.verb = "OPTIONS"</Condition>
+                </Step>
+            </Request>
+            <Response>
+                <Step><Name>AssignMessage-ContentType</Name></Step>
+            </Response>
+        </Flow>
+
+        <Flow name="Secure Resource Flow">
+            <Condition>proxy.pathsuffix MatchesPath "/secure/*"</Condition>
+            <Request>
+                <!-- Additional header validation for sensitive paths -->
+                <Step><Name>OAuthV2-OAuth</Name></Step>
+            </Request>
+            <Response>
+                <Step><Name>MessageLogging-Hygiene</Name></Step>
+            </Response>
+        </Flow>
+    </Flows>
+    
+    <!-- PostFlow: Runs after backend responds (response sanitization, logging) -->
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response>
+            <!-- Sanitize response headers -->
+            <Step><Name>AssignMessage-ContentType</Name></Step>
+
+            <!-- Re-add security headers -->
+            <Step><Name>AssignMessage-SecurityHeaders</Name></Step>
+
+            <!-- Log responses -->
+            <Step><Name>MessageLogging-Hygiene</Name></Step>
+        </Response>
+    </PostFlow>
+    
+    <!-- FaultRules: Global error handling (prevent information leakage) -->
+    <!-- Only Fault Rules is different on arrangement of conditions and step-->
+    <!-- Both must be Siblings and Conditions must come before Step-->
+    <FaultRules>
+        <!-- Authentication or Authorization Failures -->
+        <FaultRule name="AuthFailure">
+            <Condition>(fault.name = "InvalidAccessToken") or (response.status.code = 401)</Condition>
+            <Step><Name>RaiseFault-AuthError</Name></Step>
+        </FaultRule>
+    
+        <!-- JSON / XML Threat Protection Violations -->
+        <FaultRule name="ThreatProtectionFailure">
+            <Condition>(fault.name = "JSONThreatProtection.Failed") or (fault.name = "XMLThreatProtection.Failed")</Condition>
+            <Step><Name>RaiseFault-ThreatError</Name></Step>
+        </FaultRule>
+    </FaultRules>
+
+    <!-- Catch-all for any other unexpected faults -->
+    <DefaultFaultRule>
+        <AlwaysEnforce>true</AlwaysEnforce>
+        <Step><Name>RaiseFault-Generic</Name></Step>
+    </DefaultFaultRule>
+
+    <HTTPProxyConnection>
+        <BasePath>/v1/demo</BasePath>
+        <VirtualHost>default</VirtualHost>
+    </HTTPProxyConnection>
+    
+    <RouteRule name="default">
+        <TargetEndpoint>default</TargetEndpoint>
+    </RouteRule>
+</ProxyEndpoint>
