@@ -1,0 +1,5 @@
+<XMLThreatProtection name="xmltp-XMLThreat-Protection">
+    <DisplayName>xmltp-XMLThreat-Protection</DisplayName>
+    <MaxElementDepth>5</MaxElementDepth>
+    <MaxAttributes>10</MaxAttributes>
+</XMLThreatProtection>

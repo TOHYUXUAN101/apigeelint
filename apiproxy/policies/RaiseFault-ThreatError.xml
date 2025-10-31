@@ -1,0 +1,16 @@
+<RaiseFault name="RaiseFault-ThreatError">
+    <DisplayName>RaiseFault-ThreatError</DisplayName>
+    <FaultResponse>
+        <Set>
+            <StatusCode>400</StatusCode>
+            <ReasonPhrase>Bad Request</ReasonPhrase>
+            <Headers>
+                <Header name="Content-Type">application/json</Header>
+            </Headers>
+            <Payload contentType="application/json">
+                { "error": "invalid_payload", "message": "Request payload failed security validation." }
+            </Payload>
+        </Set>
+    </FaultResponse>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</RaiseFault>

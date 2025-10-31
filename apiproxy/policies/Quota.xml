@@ -1,0 +1,8 @@
+<Quota name="Quota">
+    <DisplayName>Quota</DisplayName>
+    <Interval>1</Interval>
+    <TimeUnit>minute</TimeUnit>
+    <Allow>100</Allow>
+    <Distributed>true</Distributed>
+    <Identifier ref="request.header.apikey"/>
+</Quota>

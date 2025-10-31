@@ -1,0 +1,35 @@
+<AssignMessage name="AssignMessage-SecurityHeaders">
+    <DisplayName>AssignMessage-SecurityHeaders</DisplayName>
+    <Properties/>
+    <Add>
+        <Headers>
+            <!-- Prevents your API from being embedded in iframes -->
+            <Header name="X-Frame-Options">DENY</Header>
+
+            <!-- Prevents MIME-type sniffing -->
+            <Header name="X-Content-Type-Options">nosniff</Header>
+
+            <!-- Enables browser XSS protection -->
+            <Header name="X-XSS-Protection">1; mode=block</Header>
+
+            <!-- Enforces HTTPS and subdomain security -->
+            <Header name="Strict-Transport-Security">max-age=31536000; includeSubDomains; preload</Header>
+
+            <!-- Controls where content can be loaded from -->
+            <Header name="Content-Security-Policy">
+                default-src 'none'; frame-ancestors 'none'; object-src 'none';
+            </Header>
+
+            <!-- Disables referrer information leakage -->
+            <Header name="Referrer-Policy">no-referrer</Header>
+
+            <!-- Prevents browsers from caching sensitive data -->
+            <Header name="Cache-Control">no-store, no-cache, must-revalidate</Header>
+
+            <!-- Additional optional hardening headers -->
+            <Header name="Permissions-Policy">
+                geolocation=(), microphone=(), camera=()
+            </Header>
+        </Headers>
+    </Add>
+</AssignMessage>

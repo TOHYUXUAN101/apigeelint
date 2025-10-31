@@ -1,0 +1,9 @@
+<AssignMessage name="AssignMessage-ContentType">
+    <DisplayName>AssignMessage-ContentType</DisplayName>
+    <AssignTo createNew="false">request</AssignTo>
+    <Set>
+        <Headers>
+            <Header name="Content-Type">application/json</Header>
+        </Headers>
+    </Set>
+</AssignMessage>

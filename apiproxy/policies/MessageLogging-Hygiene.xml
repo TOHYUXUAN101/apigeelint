@@ -1,0 +1,7 @@
+<MessageLogging name="MessageLogging-Hygiene">
+    <DisplayName>MessageLogging-Hygiene</DisplayName>
+    <Syslog>
+        <Message>Request logged safely</Message>
+        <ResourceType>global</ResourceType>
+    </Syslog>
+</MessageLogging>

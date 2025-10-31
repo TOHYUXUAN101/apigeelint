@@ -1,0 +1,5 @@
+<JSONThreatProtection name="JSONThreat-Protection">
+    <DisplayName>JSONThreat-Protection</DisplayName>
+    <MaxElementDepth>5</MaxElementDepth>
+    <MaxArraySize>10</MaxArraySize>
+</JSONThreatProtection>

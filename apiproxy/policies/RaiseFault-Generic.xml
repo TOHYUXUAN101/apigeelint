@@ -1,0 +1,16 @@
+<RaiseFault name="RaiseFault-Generic">
+    <DisplayName>RaiseFault-Generic</DisplayName>
+    <FaultResponse>
+        <Set>
+            <StatusCode>500</StatusCode>
+            <ReasonPhrase>Internal Server Error</ReasonPhrase>
+            <Headers>
+                <Header name="Content-Type">application/json</Header>
+            </Headers>
+            <Payload contentType="application/json">
+                { "error": "server_error", "message": "An unexpected error occurred. Please try again later." }
+            </Payload>
+        </Set>
+    </FaultResponse>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</RaiseFault>

@@ -1,0 +1,16 @@
+<RaiseFault name="RaiseFault-AuthError">
+    <DisplayName>RaiseFault-AuthError</DisplayName>
+    <FaultResponse>
+        <Set>
+            <StatusCode>401</StatusCode>
+            <ReasonPhrase>Unauthorized</ReasonPhrase>
+            <Headers>
+                <Header name="Content-Type">application/json</Header>
+            </Headers>
+            <Payload contentType="application/json">
+                { "error": "unauthorized_access", "message": "Invalid or expired credentials." }
+            </Payload>
+        </Set>
+    </FaultResponse>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</RaiseFault>

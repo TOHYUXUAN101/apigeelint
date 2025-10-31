@@ -1,0 +1,9 @@
+<CORS name="CORS">
+    <DisplayName>CORS</DisplayName>
+    <AllowOrigins>https://example.com</AllowOrigins>
+    <AllowMethods>GET, POST, OPTIONS</AllowMethods>
+    <AllowHeaders>Content-Type, Authorization, X-Requested-With</AllowHeaders>
+    <ExposeHeaders>X-Custom-Header</ExposeHeaders>
+    <MaxAge>3600</MaxAge>
+    <AllowCredentials>false</AllowCredentials>
+</CORS>

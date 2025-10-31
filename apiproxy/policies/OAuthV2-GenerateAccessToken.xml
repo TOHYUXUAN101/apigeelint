@@ -1,0 +1,12 @@
+<OAuthV2 name="OAuthV2-GenerateAccessToken">
+    <DisplayName>OAuthV2-GenerateAccessToken</DisplayName>
+    <Operation>GenerateAccessToken</Operation>
+    <GenerateResponse enabled="true"/>
+    <ExpiresIn>3600</ExpiresIn>
+    <SupportedGrantTypes>
+        <GrantType>client_credentials</GrantType>
+    </SupportedGrantTypes>
+    <Tokens>
+        <AccessToken/>
+    </Tokens>
+</OAuthV2>

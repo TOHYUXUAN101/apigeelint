@@ -1,0 +1,4 @@
+<OAuthV2 name="OAuthV2-OAuth">
+    <DisplayName>OAuthV2-OAuth</DisplayName>
+    <Operation>VerifyAccessToken</Operation>
+</OAuthV2>
