@@ -34,19 +34,10 @@ jobs:
           echo "Running ApigeeLint in table format..."
           apigeelint -s ./apiproxy -f table || true
 
-      - name: Run ApigeeLint (JSON) and save report
+      - name: Run ApigeeLint (JSON) and check for errors
         run: |
-          echo "Running ApigeeLint JSON scan..."
-          apigeelint -s ./apiproxy -f json > apigeelint-report.json || true
-
-      - name: Print JSON report (for preview)
-        run: |
-          echo "===== ApigeeLint JSON Report Preview ====="
-          cat apigeelint-report.json
-
-      - name: Check for error severity and fail if found
-        run: |
-          echo "Checking for severity: error..."
+          echo "Running ApigeeLint JSON scan and checking for severity: error..."
+          apigeelint -s ./apiproxy -f json > apigeelint-report.json
           if grep -q '"severity":"error"' apigeelint-report.json; then
             echo "❌ Security issues found. Rejecting PR."
             exit 1
@@ -54,9 +45,11 @@ jobs:
             echo "✅ No critical security issues found. Proceeding PR successfully."
           fi
 
-      - name: Upload lint report (always run)
-        if: always()
+      - name: Upload lint report
         uses: actions/upload-artifact@v4
         with:
           name: apigeelint-report
           path: apigeelint-report.json
+
+      - name: Print ApigeeLint JSON report
+        run: cat apigeelint-report.json
