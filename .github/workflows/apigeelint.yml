@@ -44,7 +44,7 @@ jobs:
           echo "===== ApigeeLint JSON Report Preview ====="
           cat apigeelint-report.json
 
-      - name: Check for 'error' severity and fail if found
+      - name: Check for error severity and fail if found
         run: |
           echo "Checking for severity: error..."
           if grep -q '"severity":"error"' apigeelint-report.json; then
