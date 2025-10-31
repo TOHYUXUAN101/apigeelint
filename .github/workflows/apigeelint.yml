@@ -37,7 +37,7 @@ jobs:
       - name: Run ApigeeLint (JSON) and check for errors
         run: |
           echo "Running ApigeeLint JSON scan and checking for severity: error..."
-          if apigeelint -s ./apiproxy -f json | grep -q '"severity":"error"'; then
+          if apigeelint -s ./apiproxy -f json 2>&1 | grep -q '"severity":"error"'; then
             echo "❌ Security issues found. Rejecting PR."
             exit 1
           else
