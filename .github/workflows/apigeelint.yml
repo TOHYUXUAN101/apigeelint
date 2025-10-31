@@ -50,3 +50,6 @@ jobs:
         with:
           name: apigeelint-report
           path: apigeelint-report.json
+
+      - name: Print ApigeeLint JSON report
+        run: cat apigeelint-report.json
