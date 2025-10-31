@@ -1,0 +1,52 @@
+name: ApigeeLint Check
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  apigeelint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout your Apigee project
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Clone ApigeeLint
+        run: |
+          git clone https://github.com/apigee/apigeelint.git
+          cd apigeelint
+          npm ci || npm install
+          npm link
+
+      - name: Verify ApigeeLint installation
+        run: npm list -g --depth=0 | grep apigeelint || true
+
+      - name: Run ApigeeLint (table format)
+        run: |
+          echo "Running ApigeeLint in table format..."
+          apigeelint -s ./apiproxy -f table || true
+
+      - name: Run ApigeeLint (JSON) and check for errors
+        run: |
+          echo "Running ApigeeLint JSON scan and checking for severity: error..."
+          apigeelint -s ./apiproxy -f json -e all > apigeelint-report.json || true
+          if grep -q '"severity":"error"' apigeelint-report.json; then
+            echo "❌ Security issues found. Rejecting PR."
+            exit 1
+          else
+            echo "✅ No critical security issues found. Proceeding PR successfully."
+          fi
+
+      - name: Upload lint report
+        uses: actions/upload-artifact@v4
+        with:
+          name: apigeelint-report
+          path: apigeelint-report.json
